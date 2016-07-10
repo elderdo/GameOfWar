@@ -9,7 +9,6 @@ package com.gameofwar;
 import com.gameofwar.model.Card;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.security.InvalidParameterException;
@@ -61,9 +60,11 @@ public class StandardDeckTest {
         deck.create(2, 2);
     }
 
-    @Ignore
+    @Test
     public void shuffle() {
-        //Not testable as shuffle can produce the same deck as the original deck
+        deck.shuffle();
+        // Only test for callable, but not able to verify shuffle as it
+        // can produce the same deck as the original deck.
     }
 
     @Test
@@ -73,6 +74,12 @@ public class StandardDeckTest {
         while (0 < deck.getSize()) {
             assertFalse(dealtDeck.contains(deck.deal()));
         }
+    }
+
+    @Test(expected = StandardDeck.DeckIsEmptyException.class)
+    public void dealEmptyDeck() {
+        assertEquals(0, deck.getSize());
+        deck.deal();
     }
 
     @Test

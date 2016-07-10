@@ -8,28 +8,43 @@ package com.gameofwar;
 
 import com.gameofwar.model.Card;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A standard deck of 52 cards with 4 suits and 13 ranks.
  */
 public class StandardDeck implements Deck {
 
-    private ArrayList<Card> deck;
+    private ArrayList<Card> deck = new ArrayList<>();
 
     @Override
-    public void create(int numberOfSuits, int numberOfRank) {
-        throw new UnsupportedOperationException();
+    public void create(int numberOfSuits, int numberOfRanks) {
+        if (0 < getSize()) {
+            throw new DeckIsNotEmptyException();
+        }
+        if (numberOfRanks < 0 || numberOfSuits < 0) {
+            throw new InvalidParameterException();
+        }
+        for (int r = 1; r <= numberOfRanks; r++) {
+            for (int s = 1; s <= numberOfSuits; s++) {
+                deck.add(new Card(r, s));
+            }
+        }
     }
 
     @Override
     public void shuffle() {
-        throw new UnsupportedOperationException();
+        Collections.shuffle(deck);
     }
 
     @Override
     public Card deal() {
-        throw new UnsupportedOperationException();
+        if (0 >= getSize()) {
+            throw new DeckIsEmptyException();
+        }
+        return deck.remove(0);
     }
 
     /**
@@ -37,14 +52,18 @@ public class StandardDeck implements Deck {
      * @return number of cards in the deck
      */
     public int getSize() {
-        throw new UnsupportedOperationException();
+        return deck.size();
     }
 
     /**
-     * Exception to throw to indicate the deck is not empty
+     * Exception to indicate the deck is empty
+     */
+    public class DeckIsEmptyException extends RuntimeException {
+    }
+
+    /**
+     * Exception to indicate the deck is not empty
      */
     public class DeckIsNotEmptyException extends RuntimeException {
     }
-
-    ;
 }
