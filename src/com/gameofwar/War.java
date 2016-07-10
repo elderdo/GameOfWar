@@ -6,12 +6,33 @@
  */
 package com.gameofwar;
 
-import com.gameofwar.model.Card;
+import com.gameofwar.model.GameResults;
 
 /**
  * Game of War
  */
 public class War {
+
+    private int numberOfSuits = 0;
+    private int numberOfRanks = 0;
+    private int numberOfPlayers = 0;
+    private GameResults status = GameResults.NO_RESULT;
+
+    public int getNumberOfSuits() {
+        return numberOfSuits;
+    }
+
+    public int getNumberOfRanks() {
+        return numberOfRanks;
+    }
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+    public GameResults getStatus() {
+        return status;
+    }
 
     /**
      * Play a game of War with the following eight rules:
@@ -48,7 +69,20 @@ public class War {
      *            number_of_ranks, and _number_of_players
      */
     public static void main(String[] args) {
+        if (3 != args.length) {
+            System.out.println("Exactly three agruments are needed to play:");
+            System.out.println("\tNumber of suits, number of ranks, " +
+                    "and number of players");
+            return;
+        }
         War war = new War();
-        war.play(4, 13, 2);
+        war.play(Integer.parseInt(args[0]),
+                Integer.parseInt(args[1]),
+                Integer.parseInt(args[2]));
     }
+
+    /**
+     * Exception to indicate not enough card to deal for all players
+     */
+    public class DeckTooSmall extends RuntimeException {};
 }

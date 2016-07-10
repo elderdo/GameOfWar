@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class CardTest {
 
     @Test
-    public void compareTo() throws Exception {
+    public void compareTo() {
         final int RANKS = 13;
         final int SUITS = 4;
 
@@ -44,7 +44,6 @@ public class CardTest {
                 }
             }
         }
-
     }
 
 }
