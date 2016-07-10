@@ -10,8 +10,8 @@ package com.gameofwar.model;
  * A Card with a given rank and suit
  */
 public class Card implements Comparable<Card> {
-    private int rank = -1;
-    private int suit = -1;
+    public final int rank;
+    public final int suit;
 
     /**
      * Constructor to initialize a new Card
@@ -25,6 +25,12 @@ public class Card implements Comparable<Card> {
 
     @Override
     public int compareTo(Card o) {
-        throw new UnsupportedOperationException();
+        if (this.rank > o.rank) {
+            return 1;
+        } else if (this.rank < o.rank) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }
