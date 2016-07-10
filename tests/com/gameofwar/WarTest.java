@@ -27,7 +27,7 @@ public class WarTest {
         assertEquals(0, game.getNumberOfSuits());
         assertEquals(0, game.getNumberOfRanks());
         assertEquals(0, game.getNumberOfPlayers());
-        assertEquals(NO_RESULT, game.getStatus());
+        assertEquals(NO_RESULT, game.getResult());
     }
 
     @After
@@ -38,25 +38,29 @@ public class WarTest {
     @Test
     public void play() {
         game.play(NUMBER_OF_SUITS, NUMBER_OF_RANKS, NUMBER_OF_PLAYERS);
-        assertNotEquals(NO_RESULT, game.getStatus());
-        assertTrue(ONE_WINNER == game.getStatus() || TIED == game.getStatus());
+        assertNotEquals(NO_RESULT, game.getResult());
+        assertTrue(ONE_WINNER == game.getResult() || TIED == game.getResult());
     }
 
     @Test
     public void playTie() {
         game.play(NUMBER_OF_SUITS, 1, NUMBER_OF_PLAYERS);
-        assertNotEquals(NO_RESULT, game.getStatus());
-        assertEquals(TIED, game.getStatus());
+        assertNotEquals(NO_RESULT, game.getResult());
+        assertEquals(TIED, game.getResult());
     }
 
     @Test
-    public void playOneWinner() {
-        game.play(1, NUMBER_OF_RANKS, NUMBER_OF_PLAYERS);
-        assertNotEquals(NO_RESULT, game.getStatus());
-        assertEquals(ONE_WINNER, game.getStatus());
+    public void playAbandonWar() {
+        game.play(10, 1, 9);
+        assertNotEquals(NO_RESULT, game.getResult());
     }
 
-    @Test(expected = War.DeckTooSmall.class)
+    @Test(expected = War.MinimumNumberOfPlayersNotMetException.class)
+    public void playOnePlayer() {
+        game.play(NUMBER_OF_SUITS, NUMBER_OF_RANKS, 1);
+    }
+
+    @Test(expected = War.DeckTooSmallException.class)
     public void playNotEnoughCard() {
         game.play(NUMBER_OF_SUITS, NUMBER_OF_RANKS,
                 (NUMBER_OF_SUITS * NUMBER_OF_RANKS) + 1);

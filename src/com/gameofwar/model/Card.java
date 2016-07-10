@@ -10,8 +10,11 @@ package com.gameofwar.model;
  * A Card with a given rank and suit
  */
 public class Card implements Comparable<Card> {
-    public final int rank;
-    public final int suit;
+    public final int RANK;
+    public final int SUIT;
+
+    public static final int LOWEST_RANK = 0;
+    public static final int LOWEST_SUIT = 0;
 
     /**
      * Constructor to initialize a new Card
@@ -19,18 +22,28 @@ public class Card implements Comparable<Card> {
      * @param suit the suit of the card
      */
     public Card(int rank, int suit) {
-        this.rank = rank;
-        this.suit = suit;
+        if (LOWEST_RANK > rank || LOWEST_SUIT > suit) {
+            throw new RankOrSuiteTooLowException();
+        }
+        this.RANK = rank;
+        this.SUIT = suit;
     }
 
     @Override
     public int compareTo(Card o) {
-        if (this.rank > o.rank) {
+        if (this.RANK > o.RANK) {
             return 1;
-        } else if (this.rank < o.rank) {
+        } else if (this.RANK < o.RANK) {
             return -1;
         } else {
             return 0;
         }
+    }
+
+    /**
+     * Exception to indicate rank or suit is lower than the value specified in
+     * LOWEST_RANK and LOWEST_SUIT
+     */
+    public class RankOrSuiteTooLowException extends RuntimeException {
     }
 }

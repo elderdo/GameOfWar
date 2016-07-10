@@ -46,4 +46,14 @@ public class CardTest {
         }
     }
 
+    @Test(expected = Card.RankOrSuiteTooLowException.class)
+    public void rankTooLow() {
+        Card lowRank = new Card(Card.LOWEST_RANK - 1, Card.LOWEST_SUIT);
+    }
+
+    @Test(expected = Card.RankOrSuiteTooLowException.class)
+    public void suitTooLow() {
+        Card lowRank = new Card(Card.LOWEST_RANK, Card.LOWEST_SUIT - 1);
+    }
+
 }
