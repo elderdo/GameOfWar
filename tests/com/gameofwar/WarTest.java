@@ -65,37 +65,4 @@ public class WarTest {
         game.play(NUMBER_OF_SUITS, NUMBER_OF_RANKS,
                 (NUMBER_OF_SUITS * NUMBER_OF_RANKS) + 1);
     }
-
-    @Test
-    public void main() {
-        String[] args = {Integer.toString(NUMBER_OF_SUITS),
-                Integer.toString(NUMBER_OF_RANKS),
-                Integer.toString(NUMBER_OF_PLAYERS)};
-        game.main(args);
-    }
-
-    @Test
-    public void mainWithLessArgs() {
-        String[] args = {Integer.toString(NUMBER_OF_SUITS),
-                Integer.toString(NUMBER_OF_RANKS)};
-        game.main(args);
-    }
-
-    @Test
-    public void mainWithMoreArgs() {
-        String[] args = {Integer.toString(NUMBER_OF_SUITS),
-                Integer.toString(NUMBER_OF_RANKS),
-                Integer.toString(NUMBER_OF_PLAYERS),
-                "3"};
-        game.main(args);
-    }
-
-    @Test
-    public void mainWithNonIntegerArg() {
-        String[] args = {Integer.toString(NUMBER_OF_SUITS),
-                Integer.toString(NUMBER_OF_RANKS),
-                "a"};
-        game.main(args);
-    }
-
 }
