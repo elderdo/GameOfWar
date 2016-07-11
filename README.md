@@ -2,6 +2,8 @@
 
 This project is a simulator of the card game called Game of War.  The rules listed below is what I have chosen to implement.  This project is an exercise on TDD, OOP, and docstring.
 
+[Project Page] (http://htquach.github.io/GameOfWar/)
+
 ### Game Rules
 1. Minimum of 2 players required for this game.
 2. Only card's rank is used to compare with other cards (card's suit is ignored).
