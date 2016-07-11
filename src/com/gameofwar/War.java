@@ -93,6 +93,8 @@ public class War {
 
         Card[] playersCard = new Card[numberOfPlayers];
         int numberOfCardsInPlay = 0;
+        boolean atWar = false;
+        ArrayList<Integer> winners = new ArrayList<>();
 
         StandardDeck deck = new StandardDeck();
         initGame(numberOfSuits, numberOfRanks, numberOfPlayers, deck);
@@ -104,38 +106,47 @@ public class War {
                 numberOfCardsInPlay++;
             }
             // Check result
-            ArrayList<Integer> winners;
-            winners = evaluateWinner(playersCard);
+            winners = evaluateWinner(playersCard, winners);
             if (1 < winners.size()) {
-                declareWar(winners);
+                if (atWar){
+                    System.out.println("War continues between players: " + winners);
+                } else {
+                    System.out.println("War is on between players: " + winners);
+                }
+                atWar = true;
                 if (numberOfPlayers > deck.getSize()) {
-                    // game over
+                    System.out.println("Game over due to out of cards");
                     break;
                 }
+                System.out.println("--- Deal extra round");
                 for (int q = 0; q < numberOfPlayers; q++) {
-                    // Deal extra cards
                     deck.deal();
                     numberOfCardsInPlay++;
                 }
+                System.out.println("--------------------");
             } else if (1 == winners.size()) {
                 int winner = winners.get(0);
                 playersCardCount.replace(winner,
                         playersCardCount.get(winner) + numberOfCardsInPlay);
+                System.out.println("Player " + winner +
+                        " collected " + numberOfCardsInPlay + " cards");
                 numberOfCardsInPlay = 0;
+                atWar = false;
+                winners.clear();
             }
         }
 
         finalizedResult();
     }
 
-    private void declareWar(ArrayList<Integer> players) {
-        System.out.println("War is on between players: " + players);
-    }
-
-    private ArrayList<Integer> evaluateWinner(Card[] playersCard) {
+    private ArrayList<Integer> evaluateWinner(Card[] playersCard,
+                                              ArrayList<Integer> validPlayers) {
         ArrayList<Integer> winners = new ArrayList<>();
         Card highestCard = new Card(Card.LOWEST_RANK, Card.LOWEST_SUIT);
         for (int p = 0; p < numberOfPlayers; p++) {
+            if (validPlayers.size() > 0 && !validPlayers.contains(p)) {
+                continue;
+            }
             if (0 < playersCard[p].compareTo(highestCard)) {
                 winners.clear();
                 winners.add(p);

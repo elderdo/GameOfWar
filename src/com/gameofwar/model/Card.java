@@ -40,6 +40,11 @@ public class Card implements Comparable<Card> {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Card: r" + this.RANK + ":s" + this.SUIT;
+    }
+
     /**
      * Exception to indicate rank or suit is lower than the value specified in
      * LOWEST_RANK and LOWEST_SUIT

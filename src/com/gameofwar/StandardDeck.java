@@ -44,7 +44,9 @@ public class StandardDeck implements Deck {
         if (0 >= getSize()) {
             throw new DeckIsEmptyException();
         }
-        return deck.remove(0);
+        Card dealtCard = deck.remove(0);
+        System.out.println("Deal " + dealtCard);
+        return dealtCard;
     }
 
     /**
