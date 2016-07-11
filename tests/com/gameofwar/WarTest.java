@@ -43,6 +43,13 @@ public class WarTest {
     }
 
     @Test
+    public void playRepeatWar() {
+        game.play(100, 2, 10);
+        assertNotEquals(NO_RESULT, game.getResult());
+        assertTrue(ONE_WINNER == game.getResult() || TIED == game.getResult());
+    }
+
+    @Test
     public void playTie() {
         game.play(NUMBER_OF_SUITS, 1, NUMBER_OF_PLAYERS);
         assertNotEquals(NO_RESULT, game.getResult());
